@@ -138,6 +138,8 @@ function productCard(p) {
         <dt>Nål</dt><dd>${p.stylus}</dd>
         <dt>Nålebærer</dt><dd>${p.cantilever}</dd>
         <dt>Vægt</dt><dd>${p.weight}</dd>
+        ${p.headshellPrice ? `<dt>Med headshell</dt><dd>${fmt.format(p.headshellPrice)}</dd>` : ""}
+        ${p.spare ? `<dt>Erstatningsnål</dt><dd>${p.spare} · ${fmt.format(p.sparePrice)}</dd>` : ""}
       </dl>
       <div class="product-foot">
         <span class="price">${fmt.format(p.price)}</span>

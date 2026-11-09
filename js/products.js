@@ -86,52 +86,59 @@ const PRODUCTS = [
   },
 
   // ---------- Nagaoka ----------
+  // Priser fra Classic HiFi Nagaoka-prisliste 2025 (pickup uden headshell). Tekniske data er vejledende.
   {
-    id: "ng-mp-100", brand: "nagaoka", model: "Nagaoka MP-100", price: 1199,
+    id: "ng-mp-100", brand: "nagaoka", model: "Nagaoka MP-100", price: 970, spare: "JN-P100", sparePrice: 520, headshellPrice: 1270, image: "img/MP-100.webp",
     type: "MM (Moving Permalloy)", output: "5,0 mV", stylus: "Konisk", cantilever: "Aluminium", weight: "6,5 g",
     color: "#222222", accent: "#d6d6d6",
     desc: "Indgangsmodellen i MP-serien. En stor opgradering fra de fleste standardpickupper med varm og balanceret lyd.",
   },
   {
-    id: "ng-mp-110", brand: "nagaoka", model: "Nagaoka MP-110", price: 1599,
+    id: "ng-mp-110", brand: "nagaoka", model: "Nagaoka MP-110", price: 1200, spare: "JN-P110", sparePrice: 670, headshellPrice: 1500, image: "img/MP-110.jpg",
     type: "MM (Moving Permalloy)", output: "5,0 mV", stylus: "Elliptisk", cantilever: "Aluminium", weight: "6,5 g",
     color: "#1c1c1c", accent: "#c62b2b",
     desc: "En populær favorit. Elliptisk nål giver flere detaljer og bedre sporing end MP-100, til en fornuftig pris.",
   },
   {
-    id: "ng-mp-150", brand: "nagaoka", model: "Nagaoka MP-150", price: 2999,
+    id: "ng-mp-150", brand: "nagaoka", model: "Nagaoka MP-150", price: 2850, spare: "JN-P150", sparePrice: 1800, headshellPrice: 3300,
     type: "MM (Moving Permalloy)", output: "4,0 mV", stylus: "Super-elliptisk", cantilever: "Bor (boron) tap", weight: "6,5 g",
     color: "#1a1a1a", accent: "#b9965a",
     desc: "Super-elliptisk nål og bor-nålebærer giver klar diskant og et præcist stereobillede. Meget pickup for pengene.",
   },
   {
-    id: "ng-mp-200", brand: "nagaoka", model: "Nagaoka MP-200", price: 4299,
+    id: "ng-mp-200", brand: "nagaoka", model: "Nagaoka MP-200", price: 3600, spare: "JN-P200", sparePrice: 2250, headshellPrice: 4050, image: "img/MP-200.jpg",
     type: "MM (Moving Permalloy)", output: "3,5 mV", stylus: "Elliptisk, nøgen diamant", cantilever: "Bor (boron)", weight: "8,0 g",
     color: "#2a3b55", accent: "#d6d6d6",
     desc: "Bor-nålebærer og nøgen elliptisk diamant. Åben og dynamisk lyd med flot opløsning i mellemtonen.",
   },
   {
-    id: "ng-mp-300", brand: "nagaoka", model: "Nagaoka MP-300", price: 5999,
+    id: "ng-mp-300", brand: "nagaoka", model: "Nagaoka MP-300", price: 5700, spare: "JN-P300", sparePrice: 3200, headshellPrice: 6480, image: "img/MP-300.jpg",
     type: "MM (Moving Permalloy)", output: "3,0 mV", stylus: "Elliptisk, nøgen diamant", cantilever: "Bor (boron)", weight: "8,5 g",
     color: "#5a1520", accent: "#e0c58a",
     desc: "Lavere bevægelig masse og forbedret dæmpning. Fyldig bas og en meget naturlig klangfarve.",
   },
   {
-    id: "ng-mp-500", brand: "nagaoka", model: "Nagaoka MP-500", price: 9999,
+    id: "ng-mp-500", brand: "nagaoka", model: "Nagaoka MP-500", price: 6800, spare: "JN-P500", sparePrice: 3900, headshellPrice: 7500, image: "img/MP-500.jpg",
     type: "MM (Moving Permalloy)", output: "3,0 mV", stylus: "Super-elliptisk, nøgen diamant", cantilever: "Bor (boron)", weight: "8,5 g",
     color: "#111111", accent: "#d4af37",
-    desc: "Topmodellen i MP-serien. Hus i messing og et lydbillede, der matcher langt dyrere moving coil-pickupper.",
+    desc: "Hus i messing og et lydbillede, der matcher langt dyrere moving coil-pickupper.",
   },
   {
-    id: "ng-jt-80bk", brand: "nagaoka", model: "Nagaoka JT-80BK", price: 1999,
+    id: "ng-mp-700", brand: "nagaoka", model: "Nagaoka MP-700", price: 9740, spare: "JN-P700", sparePrice: 5460, headshellPrice: 10400, image: "img/MP-700.jpg",
+    type: "MM (Moving Permalloy)", output: "3,0 mV", stylus: "Super-elliptisk, nøgen diamant", cantilever: "Bor (boron)", weight: "9,0 g",
+    color: "#111111", accent: "#c9a24b",
+    desc: "Nagaokas nye topmodel i MP-serien. Bor-nålebærer og nøgen diamant giver en åben, detaljeret og meget naturlig gengivelse.",
+  },
+  {
+    id: "ng-jt-80bk", brand: "nagaoka", model: "Nagaoka JT-80BK", price: 4470, spare: "JTS-80BK", sparePrice: 2970,
     type: "MM", output: "5,0 mV", stylus: "Konisk", cantilever: "Aluminium", weight: "6,0 g",
     color: "#151515", accent: "#888888",
     desc: "Solid og robust pickup til DJ-brug og hverdagslytning. Høj udgang og god sporing ved stor nålevægt.",
   },
   {
-    id: "ng-jt-1200", brand: "nagaoka", model: "Nagaoka JT-1200", price: 3499,
-    type: "MM", output: "4,5 mV", stylus: "Elliptisk", cantilever: "Aluminium", weight: "6,5 g",
-    color: "#c8c8c8", accent: "#222222",
-    desc: "Monteret på headshell og klar til brug på pladespillere med S-arm. Elliptisk nål for ren og detaljeret lyd.",
+    id: "ng-jt-80lb", brand: "nagaoka", model: "Nagaoka JT-80LB", price: 1730, spare: "JTS-80LB", sparePrice: 1120,
+    type: "MM", output: "5,0 mV", stylus: "Konisk", cantilever: "Aluminium", weight: "6,0 g",
+    color: "#6fa8c9", accent: "#ffffff",
+    desc: "Den lyseblå søster til JT-80BK. En robust og letspillet pickup til hverdagslytning, der sporer sikkert og er nem at montere.",
   },
 ];
