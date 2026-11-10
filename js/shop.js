@@ -53,10 +53,11 @@ function cartLine(key) {
   const [id, li, ci] = key.split("|");
   const p = PRODUCTS.find(x => x.id === id);
   if (!p) return null;
-  if (!p.lengths) return { p, name: p.model, price: p.price };
-  const len = p.lengths[+li] || p.lengths[0];
   const opt = p.options ? p.options.values[+ci] || p.options.values[0] : null;
-  return { p, name: `${p.model} · ${len[0]}${opt ? ` · ${opt[0]}` : ""}`, price: len[1] + (opt ? opt[1] : 0) };
+  const optName = opt ? ` · ${opt[0]}` : "", optPrice = opt ? opt[1] : 0;
+  if (!p.lengths) return { p, name: p.model + optName, price: p.price + optPrice };
+  const len = p.lengths[+li] || p.lengths[0];
+  return { p, name: `${p.model} · ${len[0]}${optName}`, price: len[1] + optPrice };
 }
 function defaultLength(p) {
   const i = p.lengths.findIndex(([l]) => l === "1,0 m");
@@ -66,11 +67,24 @@ function variantKey(id) {
   const len = document.getElementById(`len-${id}`), con = document.getElementById(`con-${id}`);
   return `${id}|${len ? len.value : 0}|${con ? con.value : 0}`;
 }
+function chooseOption(id) {
+  document.getElementById(`con-${id}`).classList.remove("needs-choice");
+  updateVariantPrice(id);
+}
 function updateVariantPrice(id) {
   document.getElementById(`price-${id}`).textContent = fmt.format(cartLine(variantKey(id)).price);
 }
 
 function addToCart(id) {
+  // Produkter med et påkrævet valg (fx high/low output) skal have valgt noget først.
+  const [pid, , ci] = id.split("|");
+  const p = PRODUCTS.find(x => x.id === pid);
+  if (p && p.options && p.options.required && ci === "") {
+    const sel = document.getElementById(`con-${pid}`);
+    sel.classList.add("needs-choice");
+    sel.focus();
+    return;
+  }
   cart[id] = (cart[id] || 0) + 1;
   saveCart(cart);
   openCart();
@@ -173,22 +187,23 @@ function productCard(p) {
         ${p.headshellPrice ? `<dt>Med headshell</dt><dd>${fmt.format(p.headshellPrice)}</dd>` : ""}
         ${p.spare ? `<dt>Erstatningsnål</dt><dd>${p.spare} · ${fmt.format(p.sparePrice)}</dd>` : ""}
       </dl>
-      ${p.lengths ? `
-      <div class="variants">
-        <label>Længde
+      ${p.lengths || p.options ? `
+      <div class="variants${p.lengths ? "" : " single"}">
+        ${p.lengths ? `<label>Længde
           <select id="len-${p.id}" onchange="updateVariantPrice('${p.id}')">
             ${p.lengths.map(([l], i) => `<option value="${i}"${i === defaultLength(p) ? " selected" : ""}>${l}</option>`).join("")}
           </select>
-        </label>
+        </label>` : ""}
         ${p.options ? `<label>${p.options.name}
-          <select id="con-${p.id}" onchange="updateVariantPrice('${p.id}')">
+          <select id="con-${p.id}" onchange="chooseOption('${p.id}')">
+            ${p.options.required ? `<option value="" selected disabled>Vælg ${p.options.name.toLowerCase()} …</option>` : ""}
             ${p.options.values.map(([c, extra], i) => `<option value="${i}">${c}${extra ? ` (+${fmt.format(extra)})` : ""}</option>`).join("")}
           </select>
         </label>` : ""}
       </div>` : ""}
       <div class="product-foot">
         <span class="price" id="price-${p.id}">${fmt.format(p.lengths ? p.lengths[defaultLength(p)][1] : p.price)}</span>
-        <button class="btn btn-primary" onclick="addToCart(${p.lengths ? `variantKey('${p.id}')` : `'${p.id}'`})">Læg i kurv</button>
+        <button class="btn btn-primary" onclick="addToCart(${p.lengths || p.options ? `variantKey('${p.id}')` : `'${p.id}'`})">Læg i kurv</button>
       </div>
     </div>
   </article>`;

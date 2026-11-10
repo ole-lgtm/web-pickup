@@ -42,26 +42,30 @@ const PRODUCTS = [
   // Priser fra Classic HiFi-prislisten (PhonoPhono, 23.09.2026), afrundet til hele kr. 10X5 MkII: 5.110 kr. (oplyst separat).
   // Tekniske data er vejledende.
   {
-    id: "dv-10xa", brand: "dynavector", model: "DV 10XA H / L", price: 5814, image: "img/DV-10XA-HL.jpg",
-    type: "MC (fås i high og low output)", output: "H: 2,0 mV · L: 0,3 mV", stylus: "Elliptisk", cantilever: "Aluminium", weight: "6,2 g",
+    id: "dv-10xa", brand: "dynavector", model: "DV 10XA", price: 5814, image: "img/DV-10XA-HL.jpg",
+    options: { name: "Output", required: true, values: [["High output (H) – til MM-indgang", 0], ["Low output (L) – til MC-indgang", 0]] },
+    type: "MC · vælg high eller low output", output: "H: 2,0 mV · L: 0,3 mV", stylus: "Elliptisk", cantilever: "Aluminium", weight: "6,2 g",
     color: "#7a1d22", accent: "#e8e2d4",
     desc: "Den nyeste indgang til Dynavectors moving coil-verden. Fås som high output til et almindeligt MM-trin eller som low output til et MC-trin.",
   },
   {
-    id: "dv-10x5-mkii", brand: "dynavector", model: "DV 10X5 MkII H / L", price: 5110, image: "img/DV-10X5-MkII.jpg",
-    type: "MC (fås i high og low output)", output: "H: 2,5 mV · L: 0,3 mV", stylus: "Elliptisk", cantilever: "Aluminium", weight: "7,3 g",
+    id: "dv-10x5-mkii", brand: "dynavector", model: "DV 10X5 MkII", price: 5110, image: "img/DV-10X5-MkII.jpg",
+    options: { name: "Output", required: true, values: [["High output (H) – til MM-indgang", 0], ["Low output (L) – til MC-indgang", 0]] },
+    type: "MC · vælg high eller low output", output: "H: 2,5 mV · L: 0,3 mV", stylus: "Elliptisk", cantilever: "Aluminium", weight: "7,3 g",
     color: "#1d1f24", accent: "#c9a24b",
     desc: "Efterfølgeren til den klassiske 10X5. Fås som high output, der spiller direkte på et MM-trin, eller som low output med endnu mere detalje til et MC-trin.",
   },
   {
-    id: "dv-20x2a", brand: "dynavector", model: "DV 20X2A H / L", price: 9312, image: "img/DV-20X2A-HL.jpg",
-    type: "MC (fås i high og low output)", output: "H: 2,0 mV · L: 0,3 mV", stylus: "Micro-ridge", cantilever: "Aluminium", weight: "7,3 g",
+    id: "dv-20x2a", brand: "dynavector", model: "DV 20X2A", price: 9312, image: "img/DV-20X2A-HL.jpg",
+    options: { name: "Output", required: true, values: [["High output (H) – til MM-indgang", 0], ["Low output (L) – til MC-indgang", 0]] },
+    type: "MC · vælg high eller low output", output: "H: 2,0 mV · L: 0,3 mV", stylus: "Micro-ridge", cantilever: "Aluminium", weight: "7,3 g",
     color: "#a12a2f", accent: "#e8e2d4",
     desc: "En moderne klassiker i ny udgave med Micro-ridge-nål og Flux Damper. Rolig, dynamisk og meget detaljeret.",
   },
   {
-    id: "dv-aska", brand: "dynavector", model: "DV Aska H / L", price: 3879, image: "img/ASKA-HL.jpg",
-    type: "MC (fås i high og low output)", output: "H: 2,0 mV · L: 0,3 mV", stylus: "Micro-ridge", cantilever: "Bor (boron)", weight: "8,0 g",
+    id: "dv-aska", brand: "dynavector", model: "DV Aska", price: 3879, image: "img/ASKA-HL.jpg",
+    options: { name: "Output", required: true, values: [["High output (H) – til MM-indgang", 0], ["Low output (L) – til MC-indgang", 0]] },
+    type: "MC · vælg high eller low output", output: "H: 2,0 mV · L: 0,3 mV", stylus: "Micro-ridge", cantilever: "Bor (boron)", weight: "8,0 g",
     color: "#14286b", accent: "#ffffff",
     desc: "Ny model med karakteristisk blåt hus og bor-nålebærer. Hurtig, åben og engageret lyd – også i en high output-udgave til MM-trin.",
   },
