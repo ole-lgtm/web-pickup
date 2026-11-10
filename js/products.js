@@ -156,6 +156,12 @@ const PRODUCTS = [
     color: "#6fa8c9", accent: "#ffffff",
     desc: "Den lyseblå søster til JT-80BK. En robust og letspillet pickup til hverdagslytning, der sporer sikkert og er nem at montere.",
   },
+  {
+    id: "ng-dj-03hd", brand: "nagaoka", model: "Nagaoka DJ-03HD", price: 1420, headshellOnly: true, spare: "GJN-03D", sparePrice: 520, image: "img/DJ-03HD.jpg",
+    type: "DJ-pickup · leveres monteret på headshell", output: "6,0 mV", stylus: "Konisk 0,6 mil", cantilever: "Aluminiumslegering", weight: "5,1 g (12,2 g med headshell)",
+    color: "#3a7bd5", accent: "#ffffff",
+    desc: "Robust DJ-pickup med høj udgang og højt nåletryk (3–5 g), der sidder sikkert i rillen ved scratch og back-cueing. Leveres færdigmonteret på headshell med en ekstra vægt på 2,6 g.",
+  },
 
   // ---------- Tilbehør ----------
   {
@@ -177,7 +183,7 @@ const PRODUCTS = [
 
 // Nagaoka: vælg pickup, pickup med headshell eller erstatningsnål (priser fra Classic HiFi Nagaoka-prisliste 2025).
 PRODUCTS.filter(p => p.brand === "nagaoka").forEach(p => {
-  const v = [["Pickup", 0]];
+  const v = [[p.headshellOnly ? "Pickup m/headshell" : "Pickup", 0]];
   if (p.headshellPrice) v.push(["Pickup m/headshell", p.headshellPrice - p.price]);
   if (p.spare) v.push([`Erstatningsnål ${p.spare}`, p.sparePrice - p.price]);
   p.options = { name: "Vælg", absolute: true, values: v };
