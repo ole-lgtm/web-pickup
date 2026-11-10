@@ -59,9 +59,14 @@ img, svg { display: block; width: 100%; height: auto; }
 .hero p { font-size: 1.1rem; opacity: .8; max-width: 520px; }
 .hero-actions { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
 .record { aspect-ratio: 1; width: 100%; max-width: 420px; justify-self: center; border-radius: 50%; animation: spin 12s linear infinite;
-  background: radial-gradient(circle, var(--gold) 0 14%, #111 14.5% 16%, transparent 16.5%),
-    repeating-radial-gradient(circle, #151515 0 2px, #1d1d1d 2px 4px);
-  box-shadow: 0 30px 80px rgba(0,0,0,.6), inset 0 0 0 1px #333; }
+  background:
+    /* spindelhul + guld-label med tynde ringe */
+    radial-gradient(circle, #0c0c0c 0 1.6%, #e9c987 1.9% 3%, #d4a95a 3.2% 22%, #8a6420 22.4% 23%, #c79a4c 23.4% 30%, #6b4c18 30.4% 31.2%, #0e0e0e 31.6% 34%, transparent 34.4%),
+    /* lysrefleks, der viser at pladen drejer */
+    conic-gradient(from 20deg, rgba(255,255,255,0) 0deg, rgba(255,240,210,.10) 30deg, rgba(255,255,255,0) 60deg, rgba(255,255,255,0) 180deg, rgba(255,240,210,.08) 210deg, rgba(255,255,255,0) 240deg),
+    /* riller */
+    repeating-radial-gradient(circle, #121212 0 2px, #222 2px 3px, #161616 3px 4px);
+  box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(176,136,63,.18), inset 0 0 0 2px rgba(176,136,63,.55), inset 0 0 0 6px #111; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .record { animation: none; } }
 
