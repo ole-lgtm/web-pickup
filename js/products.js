@@ -37,6 +37,17 @@ BRANDS.tilbehor = {
   ],
 };
 
+BRANDS.kabler = {
+  name: "Kabler",
+  eyebrow: "Cardas Audio · USA",
+  unit: "kabler",
+  tagline: "Signalkabler fra Cardas Audio – vælg længde og stik",
+  intro: [
+    "Cardas Audio fra Oregon, USA, er grundlagt af George Cardas og kendt for kabler, hvor lederne er opbygget efter det gyldne snit ('Golden Section'). Formålet er at mindske resonanser i kablet, så signalet kommer så uforandret som muligt frem.",
+    "Alle Cardas-kabler laves med rene kobberledere og Cardas' egne stik. Vælg længde under hvert kabel, så ser du prisen med det samme. Interconnects sælges i par.",
+  ],
+};
+
 const PRODUCTS = [
   // ---------- Dynavector ----------
   // Priser fra Classic HiFi-prislisten (PhonoPhono, 23.09.2026), afrundet til hele kr. 10X5 MkII: 5.110 kr. (oplyst separat).
@@ -167,5 +178,18 @@ const PRODUCTS = [
     specs: [["Rensning", "Ultralyd"], ["Tørring", "Indbygget blæser"], ["Betjening", "Kontrolpanel med flere programmer"]],
     color: "#9a9ca0", accent: "#222222",
     desc: "Den nyeste HumminGuru i børstet aluminiumsfinish. Samme effektive ultralydsrens og tørring som HG01, men med flere programmer, så du kan tilpasse rens og tørring til den enkelte plade.",
+  },
+
+  // ---------- Kabler (Cardas) ----------
+  // Priser fra Cardas Audio-prislisten 2025 (Classic HiFi, DKK, pr. par).
+  {
+    id: "cardas-clear-beyond-ic", brand: "kabler", model: "Cardas Clear Beyond Interconnect", price: 35500, image: "img/Clear-Beyond.avif",
+    type: "Interconnect · pris pr. par",
+    lengths: [["0,5 m", 35500], ["1,0 m", 45900], ["1,5 m", 54750], ["2,0 m", 66600], ["2,5 m", 76950],
+              ["3,0 m", 87300], ["3,5 m", 97700], ["4,0 m", 108050], ["4,5 m", 118400], ["5,0 m", 128750]],
+    connectors: ["RCA (Cardas SRCA)", "XLR (Cardas CG XLR)"],
+    specs: [["Serie", "Clear"], ["Stik", "Cardas SRCA eller CG XLR"], ["Længere kabler", "Pr. ekstra 0,5 m: 10.350 kr."]],
+    color: "#2a2a2a", accent: "#c9a24b",
+    desc: "Topmodellen i Cardas' Clear-serie. Et meget åbent, roligt og detaljeret lydbillede med stor rumlighed og naturlig klangfarve – til anlæg, hvor intet må gå tabt mellem kilde og forstærker.",
   },
 ];

@@ -42,6 +42,24 @@ function saveCart(cart) {
 }
 let cart = loadCart();
 
+// En kurvlinje har nøglen "id" eller "id|længde-nr|stik-nr" for kabler med valg.
+function cartLine(key) {
+  const [id, li, ci] = key.split("|");
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return null;
+  if (!p.lengths) return { p, name: p.model, price: p.price };
+  const len = p.lengths[+li] || p.lengths[0];
+  const extra = p.connectors ? ` · ${p.connectors[+ci] || p.connectors[0]}` : "";
+  return { p, name: `${p.model} · ${len[0]}${extra}`, price: len[1] };
+}
+function variantKey(id) {
+  const len = document.getElementById(`len-${id}`), con = document.getElementById(`con-${id}`);
+  return `${id}|${len ? len.value : 0}|${con ? con.value : 0}`;
+}
+function updateVariantPrice(id) {
+  document.getElementById(`price-${id}`).textContent = fmt.format(cartLine(variantKey(id)).price);
+}
+
 function addToCart(id) {
   cart[id] = (cart[id] || 0) + 1;
   saveCart(cart);
@@ -54,23 +72,23 @@ function changeQty(id, delta) {
 }
 
 function renderCart() {
-  const items = Object.entries(cart).map(([id, qty]) => ({ p: PRODUCTS.find(x => x.id === id), qty })).filter(x => x.p);
+  const items = Object.entries(cart).map(([key, qty]) => ({ key, line: cartLine(key), qty })).filter(x => x.line);
   const count = items.reduce((s, x) => s + x.qty, 0);
-  const total = items.reduce((s, x) => s + x.qty * x.p.price, 0);
+  const total = items.reduce((s, x) => s + x.qty * x.line.price, 0);
   document.querySelectorAll(".cart-count").forEach(el => { el.textContent = count; el.hidden = count === 0; });
   const list = document.getElementById("cart-items");
   if (!list) return;
   list.innerHTML = items.length
-    ? items.map(({ p, qty }) => `
+    ? items.map(({ key, line, qty }) => `
       <li class="cart-item">
-        <div class="cart-thumb">${productImage(p)}</div>
+        <div class="cart-thumb">${productImage(line.p)}</div>
         <div class="cart-info">
-          <strong>${p.model}</strong>
-          <span>${fmt.format(p.price)}</span>
+          <strong>${line.name}</strong>
+          <span>${fmt.format(line.price)}</span>
           <div class="qty">
-            <button onclick="changeQty('${p.id}',-1)" aria-label="Færre">−</button>
+            <button onclick="changeQty('${key}',-1)" aria-label="Færre">−</button>
             <span>${qty}</span>
-            <button onclick="changeQty('${p.id}',1)" aria-label="Flere">+</button>
+            <button onclick="changeQty('${key}',1)" aria-label="Flere">+</button>
           </div>
         </div>
       </li>`).join("")
@@ -99,6 +117,7 @@ function renderChrome() {
               ${link("nagaoka.html", "nagaoka", "Nagaoka")}
             </div>
           </div>
+          ${link("kabler.html", "kabler", "Kabler")}
           ${link("tilbehor.html", "tilbehor", "Tilbehør")}
         </nav>
         <button class="cart-btn" onclick="openCart()" aria-label="Indkøbskurv">
@@ -120,7 +139,7 @@ function renderChrome() {
       <div class="wrap footer-inner">
         <div><strong>Nålen &amp; Rillen</strong><br>Pickupper til pladespillere</div>
         <div>Fri fragt over 1.000 kr.<br>30 dages returret</div>
-        <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a><br><a href="tilbehor.html">Tilbehør</a></div>
+        <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a><br><a href="kabler.html">Kabler</a><br><a href="tilbehor.html">Tilbehør</a></div>
       </div>
     </footer>`);
 }
@@ -144,9 +163,22 @@ function productCard(p) {
         ${p.headshellPrice ? `<dt>Med headshell</dt><dd>${fmt.format(p.headshellPrice)}</dd>` : ""}
         ${p.spare ? `<dt>Erstatningsnål</dt><dd>${p.spare} · ${fmt.format(p.sparePrice)}</dd>` : ""}
       </dl>
+      ${p.lengths ? `
+      <div class="variants">
+        <label>Længde
+          <select id="len-${p.id}" onchange="updateVariantPrice('${p.id}')">
+            ${p.lengths.map(([l], i) => `<option value="${i}"${i === 1 ? " selected" : ""}>${l}</option>`).join("")}
+          </select>
+        </label>
+        ${p.connectors ? `<label>Stik
+          <select id="con-${p.id}">
+            ${p.connectors.map((c, i) => `<option value="${i}">${c}</option>`).join("")}
+          </select>
+        </label>` : ""}
+      </div>` : ""}
       <div class="product-foot">
-        <span class="price">${fmt.format(p.price)}</span>
-        <button class="btn btn-primary" onclick="addToCart('${p.id}')">Læg i kurv</button>
+        <span class="price" id="price-${p.id}">${fmt.format(p.lengths ? p.lengths[1][1] : p.price)}</span>
+        <button class="btn btn-primary" onclick="addToCart(${p.lengths ? `variantKey('${p.id}')` : `'${p.id}'`})">Læg i kurv</button>
       </div>
     </div>
   </article>`;
