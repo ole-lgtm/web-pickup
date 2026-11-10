@@ -1,12 +1,12 @@
 // Sumiko – priser fra Classic HiFi-prislisten 2026 (1 EUR = 7,50 DKK, afrundet til nærmeste 10 kr.).
-// Udskiftningsnåle er ikke med. Billeder fra PS Audio Scandinavias prisliste 2026. Tekniske data er vejledende.
+// Billeder fra PS Audio Scandinavias prisliste 2026. Tekniske data er vejledende.
 
 BRANDS.sumiko = {
   name: "Sumiko",
   country: "USA",
   founded: 1975,
   tagline: "Amerikanske pickupper til alle pladespillere",
-  groups: ["MM-pickupper", "MC-pickupper"],
+  groups: ["MM-pickupper", "MC-pickupper", "Udskiftningsnåle"],
   intro: [
     "Sumiko blev grundlagt i Californien i 1975 og har i mere end 50 år lavet pickupper til både begyndere og erfarne vinylentusiaster.",
     "MM-serien med Rainier, Olympia, Moonstone, Wellfleet og Amethyst har udskiftelige nåle. Nålene passer på tværs af serien, så du senere kan opgradere ved blot at skifte nålen.",
@@ -83,5 +83,69 @@ PRODUCTS.push(
     specs: [["Type", "Moving coil"]],
     color: "#1a1a1a", accent: "#c9a24b",
     desc: "Sumikos topmodel. Meget høj opløsning, stor dynamik og et roligt, sammenhængende lydbillede.",
+  },
+  // ---------- Udskiftningsnåle ----------
+  {
+    id: "su-nal-oyster", brand: "sumiko", group: "Udskiftningsnåle", model: "Sumiko Oyster · nål", price: 490,
+    image: "img/sumiko/sumiko-oyster.jpg", type: "Udskiftningsnål",
+    specs: [["Passer til", "Sumiko Oyster"]],
+    color: "#1a1a1a", accent: "#e8e2d4",
+    desc: "Original udskiftningsnål til Sumiko Oyster. Skift nålen, når den er slidt, så får pickuppen sin fulde lyd tilbage og dine plader skånes.",
+  },
+  {
+    id: "su-nal-black-pearl", brand: "sumiko", group: "Udskiftningsnåle", model: "Sumiko Black Pearl · nål", price: 600,
+    image: "img/sumiko/sumiko-black-pearl.jpg", type: "Udskiftningsnål",
+    specs: [["Passer til", "Sumiko Black Pearl"]],
+    color: "#1a1a1a", accent: "#e8e2d4",
+    desc: "Original udskiftningsnål til Sumiko Black Pearl.",
+  },
+  {
+    id: "su-nal-pearl", brand: "sumiko", group: "Udskiftningsnåle", model: "Sumiko Pearl · nål", price: 860,
+    image: "img/sumiko/sumiko-pearl.jpg", type: "Udskiftningsnål",
+    specs: [["Passer til", "Sumiko Pearl"]],
+    color: "#1a1a1a", accent: "#e8e2d4",
+    desc: "Original udskiftningsnål til Sumiko Pearl.",
+  },
+  {
+    id: "su-nal-rainier", brand: "sumiko", group: "Udskiftningsnåle", model: "Sumiko Rainier · nål", price: 980,
+    image: "img/sumiko/sumiko-rainier.jpg", type: "Udskiftningsnål",
+    specs: [["Passer til", "Sumiko Rainier"]],
+    color: "#1a1a1a", accent: "#e8e2d4",
+    desc: "Original udskiftningsnål til Sumiko Rainier.",
+  },
+  {
+    id: "su-nal-rs-78", brand: "sumiko", group: "Udskiftningsnåle", model: "Sumiko RS 78 · nål", price: 1500,
+    image: "img/sumiko/sumiko-rs-78.jpg", type: "Udskiftningsnål",
+    specs: [["Passer til", "Sumiko MM-pickupper fra Rainier til Amethyst"]],
+    color: "#1a1a1a", accent: "#e8e2d4",
+    desc: "Nål til afspilning af 78-plader. Sættes i stedet for den almindelige nål, så du kan spille dine gamle shellakplader.",
+  },
+  {
+    id: "su-nal-olympia", brand: "sumiko", group: "Udskiftningsnåle", model: "Sumiko Olympia · nål", price: 1500,
+    image: "img/sumiko/sumiko-olympia.jpg", type: "Udskiftningsnål",
+    specs: [["Passer til", "Sumiko Olympia"]],
+    color: "#1a1a1a", accent: "#e8e2d4",
+    desc: "Original udskiftningsnål til Sumiko Olympia. Kan også bruges som opgradering af en Rainier.",
+  },
+  {
+    id: "su-nal-moonstone", brand: "sumiko", group: "Udskiftningsnåle", model: "Sumiko Moonstone · nål", price: 2250,
+    image: "img/sumiko/sumiko-moonstone.jpg", type: "Udskiftningsnål",
+    specs: [["Passer til", "Sumiko Moonstone"]],
+    color: "#1a1a1a", accent: "#e8e2d4",
+    desc: "Original udskiftningsnål til Sumiko Moonstone. Kan også bruges som opgradering af en Rainier eller Olympia.",
+  },
+  {
+    id: "su-nal-wellfleet", brand: "sumiko", group: "Udskiftningsnåle", model: "Sumiko Wellfleet · nål", price: 3380,
+    image: "img/sumiko/sumiko-wellfleet.jpg", type: "Udskiftningsnål",
+    specs: [["Passer til", "Sumiko Wellfleet"]],
+    color: "#1a1a1a", accent: "#e8e2d4",
+    desc: "Original udskiftningsnål til Sumiko Wellfleet. Kan også bruges som opgradering af en Rainier, Olympia eller Moonstone.",
+  },
+  {
+    id: "su-nal-amethyst", brand: "sumiko", group: "Udskiftningsnåle", model: "Sumiko Amethyst · nål", price: 4880,
+    image: "img/sumiko/sumiko-amethyst.jpg", type: "Udskiftningsnål",
+    specs: [["Passer til", "Sumiko Amethyst"]],
+    color: "#1a1a1a", accent: "#e8e2d4",
+    desc: "Original udskiftningsnål til Sumiko Amethyst. Kan også bruges som opgradering af de øvrige MM-modeller i serien.",
   },
 );
