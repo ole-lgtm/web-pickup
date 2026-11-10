@@ -60,8 +60,8 @@ img, svg { display: block; width: 100%; height: auto; }
 .hero-actions { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
 .record { aspect-ratio: 1; width: 100%; max-width: 420px; justify-self: center; border-radius: 50%; animation: spin 12s linear infinite;
   background:
-    /* spindelhul + guld-label med tynde ringe */
-    radial-gradient(circle, #0c0c0c 0 1.6%, #e9c987 1.9% 3%, #d4a95a 3.2% 22%, #8a6420 22.4% 23%, #c79a4c 23.4% 30%, #6b4c18 30.4% 31.2%, #0e0e0e 31.6% 34%, transparent 34.4%),
+    /* guld-centrum */
+    radial-gradient(circle, var(--gold) 0 14%, #111 14.5% 16%, transparent 16.5%),
     /* lysrefleks, der viser at pladen drejer */
     conic-gradient(from 20deg, rgba(255,255,255,0) 0deg, rgba(255,240,210,.10) 30deg, rgba(255,255,255,0) 60deg, rgba(255,255,255,0) 180deg, rgba(255,240,210,.08) 210deg, rgba(255,255,255,0) 240deg),
     /* riller */
