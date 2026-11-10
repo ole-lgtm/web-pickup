@@ -135,7 +135,7 @@ function renderChrome() {
         <nav class="main-nav">
           ${link("index.html", "home", "Forside")}
           <div class="dropdown">
-            <span class="${["dynavector","nagaoka","skyanalog"].includes(page) ? "active" : ""}">Brands ▾</span>
+            <span class="${["dynavector","nagaoka","skyanalog"].includes(page) ? "active" : ""}">Mærker ▾</span>
             <div class="dropdown-menu">
               ${link("dynavector.html", "dynavector", "Dynavector")}
               ${link("nagaoka.html", "nagaoka", "Nagaoka")}

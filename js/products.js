@@ -9,7 +9,7 @@ const BRANDS = {
     tagline: "Moving coil-pionerer fra Tokyo",
     intro: [
       "Dynavector Systems blev grundlagt i Tokyo i 1978 af professor Noboru Tominari, der kom fra en baggrund i forskning i fluiddynamik og præcisionsmekanik. Hans mål var at bygge pickupper, der gengiver musikken med den rytme, timing og dynamik, man oplever ved en levende koncert.",
-      "Dynavector er især kendt for deres moving coil-pickupper og for opfindelser som 'Flux Damper' og 'Softened Magnetism', der stabiliserer magnetfeltet omkring spolerne og giver et mere roligt og detaljeret lydbillede. Brandet tilbyder både high output-modeller, der kan bruges med et almindeligt MM-trin, og low output-modeller til de mest krævende anlæg.",
+      "Dynavector er især kendt for deres moving coil-pickupper og for opfindelser som 'Flux Damper' og 'Softened Magnetism', der stabiliserer magnetfeltet omkring spolerne og giver et mere roligt og detaljeret lydbillede. Mærket tilbyder både high output-modeller, der kan bruges med et almindeligt MM-trin, og low output-modeller til de mest krævende anlæg.",
       "Alle pickupper samles og justeres i hånden i Japan.",
     ],
   },
