@@ -186,8 +186,8 @@ function productCard(p) {
         <dt>Nål</dt><dd>${p.stylus}</dd>
         <dt>Nålebærer</dt><dd>${p.cantilever}</dd>
         <dt>Vægt</dt><dd>${p.weight}</dd>`}
-        ${p.headshellPrice ? `<dt>Med headshell</dt><dd>${fmt.format(p.headshellPrice)}</dd>` : ""}
-        ${p.spare ? `<dt>Erstatningsnål</dt><dd>${p.spare} · ${fmt.format(p.sparePrice)}</dd>` : ""}
+        ${p.headshellPrice && !p.options ? `<dt>Med headshell</dt><dd>${fmt.format(p.headshellPrice)}</dd>` : ""}
+        ${p.spare && !p.options ? `<dt>Erstatningsnål</dt><dd>${p.spare} · ${fmt.format(p.sparePrice)}</dd>` : ""}
       </dl>
       ${p.lengths || p.options ? `
       <div class="variants${p.lengths ? "" : " single"}">
@@ -199,7 +199,7 @@ function productCard(p) {
         ${p.options ? `<label>${p.options.name}
           <select id="con-${p.id}" onchange="chooseOption('${p.id}')">
             ${p.options.required ? `<option value="" selected disabled>Vælg ${p.options.name.toLowerCase()} …</option>` : ""}
-            ${p.options.values.map(([c, extra], i) => `<option value="${i}">${c}${extra ? ` (+${fmt.format(extra)})` : ""}</option>`).join("")}
+            ${p.options.values.map(([c, extra], i) => `<option value="${i}">${c}${p.options.absolute ? ` – ${fmt.format(p.price + extra)}` : extra ? ` (+${fmt.format(extra)})` : ""}</option>`).join("")}
           </select>
         </label>` : ""}
       </div>` : ""}

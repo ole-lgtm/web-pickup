@@ -174,3 +174,11 @@ const PRODUCTS = [
   },
 
 ];
+
+// Nagaoka: vælg pickup, pickup med headshell eller erstatningsnål (priser fra Classic HiFi Nagaoka-prisliste 2025).
+PRODUCTS.filter(p => p.brand === "nagaoka").forEach(p => {
+  const v = [["Pickup", 0]];
+  if (p.headshellPrice) v.push(["Pickup m/headshell", p.headshellPrice - p.price]);
+  if (p.spare) v.push([`Erstatningsnål ${p.spare}`, p.sparePrice - p.price]);
+  p.options = { name: "Vælg", absolute: true, values: v };
+});
