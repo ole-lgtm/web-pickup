@@ -26,8 +26,8 @@ img, svg { display: block; width: 100%; height: auto; }
 .logo-text { display: flex; flex-direction: column; }
 .logo-name { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.15rem; font-weight: 400; letter-spacing: .35em; line-height: 1.2; text-transform: uppercase; color: #f3efe8; }
 .logo-sub { font-family: Jost, "Segoe UI", sans-serif; font-size: .6rem; letter-spacing: .45em; text-transform: uppercase; color: #dab981; margin-top: 2px; }
-@media (max-width: 480px) { .logo-name { font-size: .95rem; letter-spacing: .25em; } .logo-sub { font-size: .52rem; letter-spacing: .28em; } .logo-mark { width: 42px; height: 42px; } }
-.logo-sub { white-space: nowrap; }
+@media (max-width: 480px) { .logo { gap: 8px; } .logo-name { font-size: .78rem; letter-spacing: .14em; } .logo-sub { font-size: .5rem; letter-spacing: .22em; } .logo-mark { width: 38px; height: 38px; } }
+.logo-sub, .logo-name { white-space: nowrap; }
 .logo-disc { width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle, var(--gold) 0 18%, #111 19% 30%, #2a2a2a 31% 34%, #111 35% 60%, #2a2a2a 61% 64%, #111 65%); border: 1px solid #444; }
 .main-nav { display: flex; gap: 26px; margin-left: auto; align-items: center; }
 .main-nav a, .dropdown > span { text-decoration: none; font-size: .95rem; opacity: .85; cursor: pointer; padding: 6px 0; border-bottom: 2px solid transparent; }
