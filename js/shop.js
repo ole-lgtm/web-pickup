@@ -99,6 +99,7 @@ function renderChrome() {
               ${link("nagaoka.html", "nagaoka", "Nagaoka")}
             </div>
           </div>
+          ${link("tilbehor.html", "tilbehor", "Tilbehør")}
         </nav>
         <button class="cart-btn" onclick="openCart()" aria-label="Indkøbskurv">
           Kurv <span class="cart-count" hidden>0</span>
@@ -119,7 +120,7 @@ function renderChrome() {
       <div class="wrap footer-inner">
         <div><strong>Nålen &amp; Rillen</strong><br>Pickupper til pladespillere</div>
         <div>Fri fragt over 1.000 kr.<br>30 dages returret</div>
-        <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a></div>
+        <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a><br><a href="tilbehor.html">Tilbehør</a></div>
       </div>
     </footer>`);
 }
@@ -134,10 +135,12 @@ function productCard(p) {
       <h3>${p.model}</h3>
       <p class="product-desc">${p.desc}</p>
       <dl class="specs">
-        <dt>Udgangsspænding</dt><dd>${p.output}</dd>
+        ${p.specs
+          ? p.specs.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")
+          : `<dt>Udgangsspænding</dt><dd>${p.output}</dd>
         <dt>Nål</dt><dd>${p.stylus}</dd>
         <dt>Nålebærer</dt><dd>${p.cantilever}</dd>
-        <dt>Vægt</dt><dd>${p.weight}</dd>
+        <dt>Vægt</dt><dd>${p.weight}</dd>`}
         ${p.headshellPrice ? `<dt>Med headshell</dt><dd>${fmt.format(p.headshellPrice)}</dd>` : ""}
         ${p.spare ? `<dt>Erstatningsnål</dt><dd>${p.spare} · ${fmt.format(p.sparePrice)}</dd>` : ""}
       </dl>
@@ -154,7 +157,7 @@ function renderBrandPage(key) {
   const b = BRANDS[key];
   const items = PRODUCTS.filter(p => p.brand === key);
   document.getElementById("brand-intro").innerHTML = `
-    <p class="eyebrow">${b.country} · siden ${b.founded}</p>
+    <p class="eyebrow">${b.eyebrow || `${b.country} · siden ${b.founded}`}</p>
     <h1>${b.name}</h1>
     <p class="lead">${b.tagline}</p>
     <div class="intro-text">${b.intro.map(t => `<p>${t}</p>`).join("")}</div>`;
@@ -167,7 +170,7 @@ function renderBrandPage(key) {
     grid.innerHTML = sorted.map(productCard).join("");
   };
   sortSel.addEventListener("change", draw);
-  document.getElementById("count").textContent = `${items.length} modeller`;
+  document.getElementById("count").textContent = `${items.length} ${b.unit || "modeller"}`;
   draw();
   if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
 }

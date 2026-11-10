@@ -26,6 +26,17 @@ const BRANDS = {
   },
 };
 
+BRANDS.tilbehor = {
+  name: "Tilbehør",
+  eyebrow: "Pleje og rengøring",
+  unit: "produkter",
+  tagline: "Rene plader – bedre lyd og længere levetid for nålen",
+  intro: [
+    "Selv den bedste pickup kan kun gengive det, der er i rillen. Støv, fedt og snavs giver knas og støj og slider unødigt på nålen.",
+    "HumminGuru-pladevaskerne renser dine plader med ultralyd: millioner af små bobler løfter snavset ud af rillerne, uden at noget rører pladens overflade. Bagefter tørres pladen med den indbyggede blæser, så den er klar til at blive spillet.",
+  ],
+};
+
 const PRODUCTS = [
   // ---------- Dynavector ----------
   // Priser fra Classic HiFi-prislisten (PhonoPhono, 23.09.2026), afrundet til hele kr. 10X5 MkII: 5.110 kr. (oplyst separat).
@@ -140,5 +151,21 @@ const PRODUCTS = [
     type: "MM", output: "5,0 mV", stylus: "Konisk", cantilever: "Aluminium", weight: "6,0 g",
     color: "#6fa8c9", accent: "#ffffff",
     desc: "Den lyseblå søster til JT-80BK. En robust og letspillet pickup til hverdagslytning, der sporer sikkert og er nem at montere.",
+  },
+
+  // ---------- Tilbehør ----------
+  {
+    id: "hg-01", brand: "tilbehor", model: "HumminGuru HG01", price: 4990, image: "img/humminguru-hg01.jpg",
+    type: "Ultralyds-pladevasker",
+    specs: [["Rensning", "Ultralyd"], ["Tørring", "Indbygget blæser"], ["Betjening", "Én knap – automatisk program"]],
+    color: "#4a4d52", accent: "#ffffff",
+    desc: "Kompakt pladevasker, der renser dine plader grundigt med ultralyd og tørrer dem bagefter. Fyld vand i, sæt pladen i, og tryk på knappen. Nem at bruge og fylder ikke meget.",
+  },
+  {
+    id: "hg-05-nova", brand: "tilbehor", model: "HumminGuru HG05 Nova", price: 7990, image: "img/HumminGuru-HG05-Nova.jpg",
+    type: "Ultralyds-pladevasker",
+    specs: [["Rensning", "Ultralyd"], ["Tørring", "Indbygget blæser"], ["Betjening", "Kontrolpanel med flere programmer"]],
+    color: "#9a9ca0", accent: "#222222",
+    desc: "Den nyeste HumminGuru i børstet aluminiumsfinish. Samme effektive ultralydsrens og tørring som HG01, men med flere programmer, så du kan tilpasse rens og tørring til den enkelte plade.",
   },
 ];
