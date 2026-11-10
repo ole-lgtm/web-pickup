@@ -130,7 +130,7 @@ function renderChrome() {
   document.body.insertAdjacentHTML("afterbegin", `
     <header class="site-header">
       <div class="wrap header-inner">
-        <a href="index.html" class="logo" aria-label="Classic HiFi Fidelity – forside"><span class="logo-mark"><img src="img/classic-hifi-logo.png" alt=""></span><span class="logo-text"><span class="logo-name">Classic HiFi<br>Fidelity</span><span class="logo-sub">High End Audio</span></span></a>
+        <a href="index.html" class="logo" aria-label="Classic HiFi Fidelity – forside"><span class="logo-mark"><img src="img/classic-hifi-logo.png" alt=""></span><span class="logo-text"><span class="logo-name">Classic HiFi<br>Fidelity</span><span class="logo-sub">High End Audio · Webshop</span></span></a>
         <button class="menu-toggle" aria-label="Menu" onclick="document.body.classList.toggle('menu-open')">☰</button>
         <nav class="main-nav">
           ${link("index.html", "home", "Forside")}
