@@ -6,6 +6,12 @@ const fmt = new Intl.NumberFormat("da-DK", { style: "currency", currency: "DKK",
 // Udskift med rigtige fotos ved at tilføje fx  image: "img/dv-xx-2a.jpg"  på produktet.
 function productImage(p) {
   if (p.image) return `<img src="${p.image}" alt="${p.model}" loading="lazy">`;
+  if (p.brand === "kabler") return `
+  <svg viewBox="0 0 320 220" role="img" aria-label="${p.model}">
+    <rect width="320" height="220" fill="#fff"/>
+    <text x="160" y="104" text-anchor="middle" font-family="Georgia, serif" font-size="16" letter-spacing="4" fill="#888">CARDAS</text>
+    <text x="160" y="128" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#aaa">Billede følger</text>
+  </svg>`;
   const brand = BRANDS[p.brand].name.toUpperCase();
   const short = p.model.replace(/^(DV|Nagaoka)\s+/, "");
   return `
@@ -49,8 +55,12 @@ function cartLine(key) {
   if (!p) return null;
   if (!p.lengths) return { p, name: p.model, price: p.price };
   const len = p.lengths[+li] || p.lengths[0];
-  const extra = p.connectors ? ` · ${p.connectors[+ci] || p.connectors[0]}` : "";
-  return { p, name: `${p.model} · ${len[0]}${extra}`, price: len[1] };
+  const opt = p.options ? p.options.values[+ci] || p.options.values[0] : null;
+  return { p, name: `${p.model} · ${len[0]}${opt ? ` · ${opt[0]}` : ""}`, price: len[1] + (opt ? opt[1] : 0) };
+}
+function defaultLength(p) {
+  const i = p.lengths.findIndex(([l]) => l === "1,0 m");
+  return i < 0 ? 0 : i;
 }
 function variantKey(id) {
   const len = document.getElementById(`len-${id}`), con = document.getElementById(`con-${id}`);
@@ -167,17 +177,17 @@ function productCard(p) {
       <div class="variants">
         <label>Længde
           <select id="len-${p.id}" onchange="updateVariantPrice('${p.id}')">
-            ${p.lengths.map(([l], i) => `<option value="${i}"${i === 1 ? " selected" : ""}>${l}</option>`).join("")}
+            ${p.lengths.map(([l], i) => `<option value="${i}"${i === defaultLength(p) ? " selected" : ""}>${l}</option>`).join("")}
           </select>
         </label>
-        ${p.connectors ? `<label>Stik
-          <select id="con-${p.id}">
-            ${p.connectors.map((c, i) => `<option value="${i}">${c}</option>`).join("")}
+        ${p.options ? `<label>${p.options.name}
+          <select id="con-${p.id}" onchange="updateVariantPrice('${p.id}')">
+            ${p.options.values.map(([c, extra], i) => `<option value="${i}">${c}${extra ? ` (+${fmt.format(extra)})` : ""}</option>`).join("")}
           </select>
         </label>` : ""}
       </div>` : ""}
       <div class="product-foot">
-        <span class="price" id="price-${p.id}">${fmt.format(p.lengths ? p.lengths[1][1] : p.price)}</span>
+        <span class="price" id="price-${p.id}">${fmt.format(p.lengths ? p.lengths[defaultLength(p)][1] : p.price)}</span>
         <button class="btn btn-primary" onclick="addToCart(${p.lengths ? `variantKey('${p.id}')` : `'${p.id}'`})">Læg i kurv</button>
       </div>
     </div>
@@ -195,11 +205,26 @@ function renderBrandPage(key) {
     <div class="intro-text">${b.intro.map(t => `<p>${t}</p>`).join("")}</div>`;
   const grid = document.getElementById("product-grid");
   const sortSel = document.getElementById("sort");
-  const draw = () => {
-    const sorted = [...items];
+  const sortList = list => {
+    const sorted = [...list];
     if (sortSel.value === "asc") sorted.sort((a, b) => a.price - b.price);
     if (sortSel.value === "desc") sorted.sort((a, b) => b.price - a.price);
-    grid.innerHTML = sorted.map(productCard).join("");
+    return sorted;
+  };
+  const slug = g => "g-" + g.toLowerCase().replace(/[^a-zæøå]+/g, "-");
+  if (b.groups) {
+    grid.classList.add("grouped");
+    document.getElementById("brand-intro").insertAdjacentHTML("beforeend",
+      `<nav class="group-nav">${b.groups.map(g => `<a href="#${slug(g)}">${g}</a>`).join("")}</nav>`);
+  }
+  const draw = () => {
+    grid.innerHTML = b.groups
+      ? b.groups.map(g => `
+        <section class="group" id="${slug(g)}">
+          <h3 class="group-title">${g}</h3>
+          <div class="grid">${sortList(items.filter(p => p.group === g)).map(productCard).join("")}</div>
+        </section>`).join("")
+      : sortList(items).map(productCard).join("");
   };
   sortSel.addEventListener("change", draw);
   document.getElementById("count").textContent = `${items.length} ${b.unit || "modeller"}`;
