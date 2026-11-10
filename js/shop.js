@@ -135,11 +135,12 @@ function renderChrome() {
         <nav class="main-nav">
           ${link("index.html", "home", "Forside")}
           <div class="dropdown">
-            <span class="${["dynavector","nagaoka","skyanalog"].includes(page) ? "active" : ""}">Mærker ▾</span>
+            <span class="${["dynavector","nagaoka","skyanalog","sumiko"].includes(page) ? "active" : ""}">Mærker ▾</span>
             <div class="dropdown-menu">
               ${link("dynavector.html", "dynavector", "Dynavector")}
               ${link("nagaoka.html", "nagaoka", "Nagaoka")}
               ${link("skyanalog.html", "skyanalog", "Skyanalog")}
+              ${link("sumiko.html", "sumiko", "Sumiko")}
             </div>
           </div>
           ${link("kabler.html", "kabler", "Kabler")}
@@ -164,7 +165,7 @@ function renderChrome() {
       <div class="wrap footer-inner">
         <div><strong>Nålen &amp; Rillen</strong><br>Pickupper til pladespillere</div>
         <div>Fri fragt over 1.000 kr.<br>30 dages returret</div>
-        <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a><br><a href="skyanalog.html">Skyanalog</a><br><a href="kabler.html">Kabler</a><br><a href="tilbehor.html">Tilbehør</a></div>
+        <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a><br><a href="skyanalog.html">Skyanalog</a><br><a href="sumiko.html">Sumiko</a><br><a href="kabler.html">Kabler</a><br><a href="tilbehor.html">Tilbehør</a></div>
       </div>
     </footer>`);
 }

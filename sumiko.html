@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/products.js" defer></script>
+  <script src="js/cardas.js" defer></script>
+  <script src="js/skyanalog.js" defer></script>
+  <script src="js/sumiko.js" defer></script>
+  <script src="js/shop.js" defer></script>
+  <title>Sumiko pickupper – Nålen & Rillen</title>
+</head>
+<body data-page="sumiko">
+  <section class="brand-hero">
+    <div class="wrap" id="brand-intro"></div>
+  </section>
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Modeller</h2>
+        <div class="toolbar">
+          <span id="count"></span>
+          <select id="sort" aria-label="Sortér">
+            <option value="asc">Pris: lav til høj</option>
+            <option value="desc">Pris: høj til lav</option>
+            <option value="none">Standard</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid" id="product-grid"></div>
+    </div>
+  </section>
+</body>
+</html>
