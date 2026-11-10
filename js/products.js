@@ -111,7 +111,7 @@ const PRODUCTS = [
     desc: "En populær favorit. Elliptisk nål giver flere detaljer og bedre sporing end MP-100, til en fornuftig pris.",
   },
   {
-    id: "ng-mp-150", brand: "nagaoka", model: "Nagaoka MP-150", price: 2850, spare: "JN-P150", sparePrice: 1800, headshellPrice: 3300,
+    id: "ng-mp-150", brand: "nagaoka", model: "Nagaoka MP-150", price: 2850, spare: "JN-P150", sparePrice: 1800, headshellPrice: 3300, image: "img/MP-150.webp",
     type: "MM (Moving Permalloy)", output: "4,0 mV", stylus: "Super-elliptisk", cantilever: "Bor (boron) tap", weight: "6,5 g",
     color: "#1a1a1a", accent: "#b9965a",
     desc: "Super-elliptisk nål og bor-nålebærer giver klar diskant og et præcist stereobillede. Meget pickup for pengene.",
@@ -141,13 +141,13 @@ const PRODUCTS = [
     desc: "Nagaokas nye topmodel i MP-serien. Bor-nålebærer og nøgen diamant giver en åben, detaljeret og meget naturlig gengivelse.",
   },
   {
-    id: "ng-jt-80bk", brand: "nagaoka", model: "Nagaoka JT-80BK", price: 4470, spare: "JTS-80BK", sparePrice: 2970,
+    id: "ng-jt-80bk", brand: "nagaoka", model: "Nagaoka JT-80BK", price: 4470, spare: "JTS-80BK", sparePrice: 2970, image: "img/JT-80BK.jpg",
     type: "MM", output: "5,0 mV", stylus: "Konisk", cantilever: "Aluminium", weight: "6,0 g",
     color: "#151515", accent: "#888888",
     desc: "Solid og robust pickup til DJ-brug og hverdagslytning. Høj udgang og god sporing ved stor nålevægt.",
   },
   {
-    id: "ng-jt-80lb", brand: "nagaoka", model: "Nagaoka JT-80LB", price: 1730, spare: "JTS-80LB", sparePrice: 1120,
+    id: "ng-jt-80lb", brand: "nagaoka", model: "Nagaoka JT-80LB", price: 1730, spare: "JTS-80LB", sparePrice: 1120, image: "img/JT-80LB.jpg",
     type: "MM", output: "5,0 mV", stylus: "Konisk", cantilever: "Aluminium", weight: "6,0 g",
     color: "#6fa8c9", accent: "#ffffff",
     desc: "Den lyseblå søster til JT-80BK. En robust og letspillet pickup til hverdagslytning, der sporer sikkert og er nem at montere.",
