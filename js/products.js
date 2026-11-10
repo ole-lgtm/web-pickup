@@ -183,7 +183,7 @@ const PRODUCTS = [
   // ---------- Kabler (Cardas) ----------
   // Priser fra Cardas Audio-prislisten 2025 (Classic HiFi, DKK, pr. par).
   {
-    id: "cardas-clear-beyond-ic", brand: "kabler", model: "Cardas Clear Beyond Interconnect", price: 35500, image: "img/Clear-Beyond.avif",
+    id: "cardas-clear-beyond-ic", brand: "kabler", model: "Cardas Clear Beyond Interconnect", price: 35500, image: "img/Clear-Beyond.jpg",
     type: "Interconnect · pris pr. par",
     lengths: [["0,5 m", 35500], ["1,0 m", 45900], ["1,5 m", 54750], ["2,0 m", 66600], ["2,5 m", 76950],
               ["3,0 m", 87300], ["3,5 m", 97700], ["4,0 m", 108050], ["4,5 m", 118400], ["5,0 m", 128750]],
