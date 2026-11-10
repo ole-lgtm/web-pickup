@@ -130,7 +130,7 @@ function renderChrome() {
   document.body.insertAdjacentHTML("afterbegin", `
     <header class="site-header">
       <div class="wrap header-inner">
-        <a href="index.html" class="logo"><span class="logo-disc"></span>Nålen &amp; Rillen</a>
+        <a href="index.html" class="logo" aria-label="Classic HiFi Fidelity – forside"><span class="logo-mark"><img src="img/classic-hifi-logo.png" alt=""></span><span class="logo-text"><span class="logo-name">Classic HiFi<br>Fidelity</span><span class="logo-sub">High End Audio</span></span></a>
         <button class="menu-toggle" aria-label="Menu" onclick="document.body.classList.toggle('menu-open')">☰</button>
         <nav class="main-nav">
           ${link("index.html", "home", "Forside")}
@@ -163,7 +163,7 @@ function renderChrome() {
     </aside>
     <footer class="site-footer">
       <div class="wrap footer-inner">
-        <div><strong>Nålen &amp; Rillen</strong><br>Pickupper til pladespillere</div>
+        <div><strong>Classic HiFi Fidelity</strong><br>High End Audio</div>
         <div>Fri fragt over 1.000 kr.<br>30 dages returret</div>
         <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a><br><a href="skyanalog.html">Skyanalog</a><br><a href="sumiko.html">Sumiko</a><br><a href="kabler.html">Kabler</a><br><a href="tilbehor.html">Tilbehør</a></div>
       </div>

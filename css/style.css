@@ -20,7 +20,13 @@ img, svg { display: block; width: 100%; height: auto; }
 /* Header */
 .site-header { position: sticky; top: 0; z-index: 20; background: rgba(20,20,22,.96); color: #f4f1ea; backdrop-filter: blur(6px); }
 .header-inner { display: flex; align-items: center; gap: 28px; height: 68px; }
-.logo { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 1.6rem; font-weight: 600; text-decoration: none; }
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #f3efe8; }
+.logo-mark { width: 50px; height: 50px; flex: none; background: #000; overflow: hidden; display: block; }
+.logo-mark img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.35); display: block; }
+.logo-text { display: flex; flex-direction: column; }
+.logo-name { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.15rem; font-weight: 400; letter-spacing: .35em; line-height: 1.2; text-transform: uppercase; color: #f3efe8; }
+.logo-sub { font-family: Jost, "Segoe UI", sans-serif; font-size: .6rem; letter-spacing: .45em; text-transform: uppercase; color: #dab981; margin-top: 2px; }
+@media (max-width: 480px) { .logo-name { font-size: .95rem; letter-spacing: .25em; } .logo-mark { width: 42px; height: 42px; } }
 .logo-disc { width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle, var(--gold) 0 18%, #111 19% 30%, #2a2a2a 31% 34%, #111 35% 60%, #2a2a2a 61% 64%, #111 65%); border: 1px solid #444; }
 .main-nav { display: flex; gap: 26px; margin-left: auto; align-items: center; }
 .main-nav a, .dropdown > span { text-decoration: none; font-size: .95rem; opacity: .85; cursor: pointer; padding: 6px 0; border-bottom: 2px solid transparent; }
