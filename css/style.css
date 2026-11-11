@@ -138,6 +138,11 @@ select { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid
 .cart-foot { padding: 20px 22px; border-top: 1px solid var(--line); }
 .cart-sum { display: flex; justify-content: space-between; margin-bottom: 14px; }
 .cart-foot .btn { width: 100%; }
+.checkout-msg { margin: 12px 0 0; padding: 10px 12px; border-radius: 6px; background: #fbeaea; color: #8a1f1f; font-size: .85rem; }
+.checkout-note { margin: 10px 0 0; text-align: center; font-size: .75rem; color: var(--muted, #777); }
+.thanks { text-align: center; max-width: 620px; margin: 0 auto; padding: 80px 0; }
+.thanks h1 { margin-bottom: 12px; }
+.thanks .btn { margin-top: 24px; }
 
 /* Footer */
 .site-footer { background: var(--dark); color: #bdb7aa; padding: 44px 0; font-size: .9rem; }

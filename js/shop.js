@@ -120,6 +120,32 @@ function renderCart() {
   document.getElementById("cart-total").textContent = fmt.format(total);
   document.getElementById("checkout").disabled = items.length === 0;
 }
+// ---------- Betaling (Stripe Checkout via Cloudflare Worker, se checkout/) ----------
+// Sæt adressen på Workeren her, når den er lagt op hos Cloudflare.
+const CHECKOUT_URL = "";
+
+async function checkout() {
+  const btn = document.getElementById("checkout"), msg = document.getElementById("checkout-msg");
+  const say = t => { msg.textContent = t; msg.hidden = !t; };
+  if (!CHECKOUT_URL) return say("Betaling er ikke åbnet endnu. Kontakt os, så hjælper vi med din bestilling.");
+  const items = Object.entries(cart).filter(([key]) => cartLine(key)).map(([key, qty]) => ({ key, qty }));
+  if (!items.length) return;
+  btn.disabled = true; btn.textContent = "Åbner betaling …"; say("");
+  try {
+    const res = await fetch(CHECKOUT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items, total: items.reduce((s, x) => s + x.qty * cartLine(x.key).price, 0), returnUrl: location.href.split("#")[0] }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.url) throw new Error(data.error || "Betalingen kunne ikke startes.");
+    location.href = data.url;
+  } catch (e) {
+    say(e.message === "Failed to fetch" ? "Kunne ikke få forbindelse. Prøv igen om lidt." : e.message);
+    btn.disabled = false; btn.textContent = "Gå til kassen";
+  }
+}
+
 function openCart() { document.body.classList.add("cart-open"); }
 function closeCart() { document.body.classList.remove("cart-open"); }
 
@@ -158,7 +184,9 @@ function renderChrome() {
       <ul id="cart-items"></ul>
       <div class="cart-foot">
         <div class="cart-sum"><span>I alt inkl. moms</span><strong id="cart-total">0 kr.</strong></div>
-        <button id="checkout" class="btn btn-primary" onclick="alert('Kassen er ikke koblet på endnu – her skal betaling (fx Stripe, QuickPay eller MobilePay) tilsluttes.')">Gå til kassen</button>
+        <button id="checkout" class="btn btn-primary" onclick="checkout()">Gå til kassen</button>
+        <p id="checkout-msg" class="checkout-msg" role="alert" hidden></p>
+        <p class="checkout-note">Sikker betaling med kort eller MobilePay via Stripe</p>
       </div>
     </aside>
     <footer class="site-footer">
@@ -263,6 +291,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const page = document.body.dataset.page;
   if (page === "home") renderHome();
   if (BRANDS[page]) renderBrandPage(page);
+  if (page === "tak") { cart = {}; saveCart(cart); }
   renderCart();
+  // Tilbage fra Stripe med browserens tilbage-knap: nulstil knappen.
+  window.addEventListener("pageshow", () => { const b = document.getElementById("checkout"); if (b) b.textContent = "Gå til kassen"; renderCart(); });
   document.addEventListener("keydown", e => e.key === "Escape" && closeCart());
 });
