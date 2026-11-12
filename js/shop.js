@@ -232,7 +232,7 @@ function productCard(p) {
             ${p.options.values.map(([c, extra], i) => `<option value="${i}">${c}${p.options.absolute ? ` – ${fmt.format(p.price + extra)}` : extra ? ` (+${fmt.format(extra)})` : ""}</option>`).join("")}
           </select>
         </label>` : ""}
-      </div>` : ""}
+      </div>` : `<div class="variants none"></div>`}
       <div class="product-foot">
         <span class="price" id="price-${p.id}">${fmt.format(p.lengths ? p.lengths[defaultLength(p)][1] : p.price)}</span>
         <button class="btn btn-primary" onclick="addToCart(${p.lengths || p.options ? `variantKey('${p.id}')` : `'${p.id}'`})">Læg i kurv</button>

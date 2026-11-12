@@ -211,3 +211,16 @@ select { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid
 .checkout-terms { margin: 10px 0 0; font-size: .75rem; text-align: center; color: var(--muted); }
 .checkout-terms a { color: inherit; }
 .withdraw-form[hidden], .withdraw-confirm[hidden] { display: none; }
+
+/* Produktkort i samme række flugter: type, navn, tekst, data, valg og pris ligger på samme linjer. */
+@supports (grid-template-rows: subgrid) {
+  /* Afstanden mellem rækkerne ligger som margin på kortet, så den ikke lægges ind mellem kortets egne linjer. */
+  .grid:has(> .product) { row-gap: 0; }
+  .grid > .product { display: grid; grid-row: span 7; grid-template-rows: subgrid; row-gap: 0; margin-bottom: 26px; }
+  .grid > .product > .product-body { display: contents; }
+  .grid > .product > .product-body > * { margin-left: 22px; margin-right: 22px; }
+  .grid > .product .product-type { margin-top: 22px; }
+  .grid > .product .product-foot { margin-top: 0; margin-bottom: 22px; align-self: end; }
+  .grid > .product .specs { align-self: start; }
+}
+.variants.none { margin-top: 0; margin-bottom: 0; }
