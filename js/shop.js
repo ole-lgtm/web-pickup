@@ -192,7 +192,7 @@ function renderChrome() {
     </aside>
     <footer class="site-footer">
       <div class="wrap footer-inner">
-        <div class="company"><strong>Classic HiFi Fidelity ApS</strong><br>Nørre Alle 4, 7400 Herning<br>CVR 46685326<br><a href="tel:+4571903271">71 90 32 71</a> · <a href="mailto:info@classic-hifi.dk">info@classic-hifi.dk</a><br><span class="footer-note">Kun åbent efter forudgående aftale</span></div>
+        <div class="company"><strong>Classic High Fidelity ApS</strong><br>Nørre Alle 4, 7400 Herning<br>CVR 46685326<br><a href="tel:+4571903271">71 90 32 71</a> · <a href="mailto:info@classic-hifi.dk">info@classic-hifi.dk</a><br><span class="footer-note">Kun åbent efter forudgående aftale</span></div>
         <div>Fri fragt fra 1.000 kr.<br>14 dages fortrydelsesret<br><a href="handelsbetingelser.html">Handelsbetingelser</a><br><a href="fortrydelse.html">Fortrydelsesret · fortryd et køb</a></div>
         <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a><br><a href="skyanalog.html">Skyanalog</a><br><a href="sumiko.html">Sumiko</a><br><a href="kabler.html">Kabler</a><br><a href="tilbehor.html">Tilbehør</a></div>
       </div>
@@ -289,29 +289,51 @@ function renderHome() {
 }
 
 // ---------- Fortrydelsesfunktion (fortrydelse.html) ----------
-// Trin 1: kunden udfylder felterne. Trin 2: kunden bekræfter, og meddelelsen sendes til info@classic-hifi.dk.
+// Trin 1: kunden udfylder felterne. Trin 2: kunden bekræfter. Med Workeren sendes en kvittering
+// med dato og klokkeslæt på e-mail. Uden Workeren åbnes kundens e-mailprogram i stedet.
 function setupWithdrawForm() {
   const form = document.getElementById("withdraw-form"), box = document.getElementById("withdraw-confirm");
   if (!form) return;
-  const esc = t => t.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   form.addEventListener("submit", e => {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(form));
-    const varer = d.varer.trim() || "Alle varer i ordren";
-    const text = `Jeg meddeler herved, at jeg ønsker at gøre fortrydelsesretten gældende for følgende køb:\n\nOrdre: ${d.ordre}\nVarer: ${varer}\nNavn: ${d.navn}\nE-mail: ${d.email}\nDato: ${new Date().toLocaleDateString("da-DK")}`;
-    const mail = `mailto:info@classic-hifi.dk?subject=${encodeURIComponent("Fortrydelse af køb – ordre " + d.ordre)}&body=${encodeURIComponent(text)}`;
+    d.varer = d.varer.trim() || "Alle varer i ordren";
     box.innerHTML = `<p><strong>Bekræft at du vil fortryde købet</strong></p>
-      <p>Ordre ${esc(d.ordre)} · ${esc(varer)}<br>${esc(d.navn)} · ${esc(d.email)}</p>
-      <a class="btn btn-primary" id="withdraw-send" href="${mail}">Bekræft fortrydelse</a>
-      <button class="btn" type="button" onclick="this.parentElement.hidden = true">Ret oplysninger</button>`;
-    box.hidden = false;
-    form.hidden = true;
-    document.getElementById("withdraw-send").addEventListener("click", () => {
-      box.innerHTML = `<p><strong>Dit e-mailprogram åbner nu med din fortrydelse.</strong> Tryk send i e-mailen. Når vi har modtaget den, bekræfter vi din fortrydelse på e-mail.</p>
+      <p>Ordre ${esc(d.ordre)} · ${esc(d.varer)}<br>${esc(d.navn)} · ${esc(d.email)}</p>
+      <button class="btn btn-primary" type="button" id="withdraw-send">Bekræft fortrydelse</button>
+      <button class="btn" type="button" id="withdraw-edit">Ret oplysninger</button>
+      <p id="withdraw-error" class="checkout-msg" hidden></p>`;
+    box.hidden = false; form.hidden = true;
+    document.getElementById("withdraw-edit").onclick = () => { box.hidden = true; form.hidden = false; };
+    document.getElementById("withdraw-send").onclick = async ev => {
+      ev.target.disabled = true; ev.target.textContent = "Sender …";
+      if (CHECKOUT_URL) {
+        try {
+          const res = await fetch(CHECKOUT_URL.replace(/\/$/, "") + "/fortryd", {
+            method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d),
+          });
+          const r = await res.json();
+          if (!res.ok || !r.ok) throw new Error(r.error || "Fortrydelsen kunne ikke sendes.");
+          box.innerHTML = `<p><strong>Din fortrydelse er modtaget ${esc(r.tid)}.</strong></p>
+            <p>Vi har sendt en kvittering til ${esc(d.email)} med indholdet af din fortrydelse, dato og klokkeslæt. Send varen til Classic High Fidelity ApS, Nørre Alle 4, 7400 Herning, senest 14 dage efter i dag.</p>
+            <p>Ordre ${esc(d.ordre)} · ${esc(d.varer)}</p>`;
+          return;
+        } catch (err) {
+          const m = document.getElementById("withdraw-error");
+          m.textContent = err.message === "Failed to fetch" ? "Kunne ikke få forbindelse. Prøv igen, eller skriv til info@classic-hifi.dk." : err.message;
+          m.hidden = false; ev.target.disabled = false; ev.target.textContent = "Bekræft fortrydelse";
+          return;
+        }
+      }
+      // Reserveløsning, indtil Workeren er sat op: kundens eget e-mailprogram.
+      const tid = new Date().toLocaleString("da-DK", { dateStyle: "long", timeStyle: "short" });
+      const text = `Jeg meddeler herved, at jeg ønsker at gøre fortrydelsesretten gældende for følgende køb:\n\nOrdre: ${d.ordre}\nVarer: ${d.varer}\nNavn: ${d.navn}\nE-mail: ${d.email}\nTidspunkt: ${tid}`;
+      location.href = `mailto:info@classic-hifi.dk?subject=${encodeURIComponent("Fortrydelse af køb – ordre " + d.ordre)}&body=${encodeURIComponent(text)}`;
+      box.innerHTML = `<p><strong>Dit e-mailprogram åbner nu med din fortrydelse.</strong> Tryk send i e-mailen. Vi sender en kvittering, når vi har modtaget den.</p>
         <p>Åbnede der ikke en e-mail? Så send teksten herunder til <a href="mailto:info@classic-hifi.dk">info@classic-hifi.dk</a>.</p>
         <pre style="white-space:pre-wrap;font:inherit;background:#fff;padding:12px;border-radius:6px">${esc(text)}</pre>`;
-    });
-    box.querySelector("button").addEventListener("click", () => { form.hidden = false; });
+    };
   });
 }
 

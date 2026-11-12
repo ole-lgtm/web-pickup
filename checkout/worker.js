@@ -8,6 +8,12 @@
 //   Variabler: SHOP_URL            fx https://ole-lgtm.github.io/web-pickup
 //              SHIPPING_DKK        fragt under grænsen, fx 49
 //              FREE_SHIPPING_DKK   grænse for fri fragt, fx 1000
+//   Fortrydelser (POST /fortryd) sendes som e-mail via Resend:
+//   Secret:    RESEND_API_KEY
+//   Variabler: MAIL_FROM           fx Classic HiFi Fidelity <ordre@classic-hifi.dk> (domænet skal være godkendt i Resend)
+//              SHOP_EMAIL          fx info@classic-hifi.dk (får en kopi og er svar-adresse)
+//
+// Betalingen reserveres kun (capture_method=manual). Beløbet hæves i Stripe, når varen sendes.
 
 const MAX_QTY = 10;
 
@@ -28,10 +34,11 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { headers: cors });
     if (request.method !== "POST") return reply({ error: "Brug POST" }, 405);
     if (!allowed) return reply({ error: "Ukendt afsender" }, 403);
-    if (!env.STRIPE_SECRET_KEY || !shop) return reply({ error: "Betaling er ikke sat op endnu" }, 500);
 
     let body;
     try { body = await request.json(); } catch { return reply({ error: "Ugyldig forespørgsel" }, 400); }
+    if (new URL(request.url).pathname.replace(/\/$/, "") === "/fortryd") return withdraw(body, env, reply);
+    if (!env.STRIPE_SECRET_KEY || !shop) return reply({ error: "Betaling er ikke sat op endnu" }, 500);
     const items = Array.isArray(body.items) ? body.items : [];
     if (!items.length || items.length > 50) return reply({ error: "Kurven er tom" }, 400);
 
@@ -63,6 +70,8 @@ export default {
 
     const form = new URLSearchParams({
       mode: "payment",
+      // Beløbet reserveres og hæves først i Stripe, når varen sendes.
+      "payment_intent_data[capture_method]": "manual",
       locale: "da",
       success_url: `${base}/tak.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: local ? `${origin}/` : back,
@@ -91,6 +100,29 @@ export default {
     return reply({ url: session.url });
   },
 };
+
+// Fortrydelsesfunktionen (forbrugeraftalelovens § 20 a): kunden får en kvittering
+// med indhold, dato og klokkeslæt på e-mail, og butikken får en kopi.
+async function withdraw(body, env, reply) {
+  const clean = (v, max) => String(v || "").replace(/[\r\n]+/g, " ").trim().slice(0, max);
+  const d = { navn: clean(body.navn, 120), email: clean(body.email, 200), ordre: clean(body.ordre, 80), varer: clean(body.varer, 1000) || "Alle varer i ordren" };
+  if (!d.navn || !d.ordre || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)) return reply({ error: "Udfyld navn, e-mail og ordrenummer." }, 400);
+  if (!env.RESEND_API_KEY || !env.MAIL_FROM || !env.SHOP_EMAIL) return reply({ error: "Fortrydelse online er ikke sat op endnu" }, 503);
+
+  const tid = new Date().toLocaleString("da-DK", { timeZone: "Europe/Copenhagen", dateStyle: "long", timeStyle: "short" });
+  const esc = t => t.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const linjer = [["Ordre", d.ordre], ["Varer", d.varer], ["Navn", d.navn], ["E-mail", d.email], ["Modtaget", tid]];
+  const text = `Kvittering for fortrydelse\n\nVi har modtaget din meddelelse om, at du fortryder dit køb hos Classic High Fidelity ApS.\n\n${linjer.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nSend varen til Classic High Fidelity ApS, Nørre Alle 4, 7400 Herning, senest 14 dage efter i dag. Vi refunderer senest 14 dage efter, at vi har modtaget denne meddelelse, men kan vente, til vi har fået varen tilbage eller du har vist, at du har sendt den.\n\nClassic High Fidelity ApS · CVR 46685326 · Nørre Alle 4, 7400 Herning · ${env.SHOP_EMAIL}`;
+  const html = `<p><strong>Kvittering for fortrydelse</strong></p><p>Vi har modtaget din meddelelse om, at du fortryder dit køb hos Classic High Fidelity ApS.</p><table>${linjer.map(([k, v]) => `<tr><td style="padding-right:12px;color:#666">${k}</td><td>${esc(v)}</td></tr>`).join("")}</table><p>Send varen til Classic High Fidelity ApS, Nørre Alle 4, 7400 Herning, senest 14 dage efter i dag. Vi refunderer senest 14 dage efter, at vi har modtaget denne meddelelse, men kan vente, til vi har fået varen tilbage eller du har vist, at du har sendt den.</p><p style="color:#666">Classic High Fidelity ApS · CVR 46685326 · Nørre Alle 4, 7400 Herning · ${esc(env.SHOP_EMAIL)}</p>`;
+
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ from: env.MAIL_FROM, to: [d.email], bcc: [env.SHOP_EMAIL], reply_to: env.SHOP_EMAIL, subject: `Kvittering for fortrydelse – ordre ${d.ordre}`, text, html }),
+  });
+  if (!res.ok) return reply({ error: "Kvitteringen kunne ikke sendes. Prøv igen, eller skriv til os." }, 502);
+  return reply({ ok: true, tid });
+}
 
 // Samme regel som cartLine() i js/shop.js, men streng: ukendte valg afvises.
 function priceLine(prices, key) {
