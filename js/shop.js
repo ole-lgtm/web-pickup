@@ -214,8 +214,8 @@ function productCard(p) {
           : `<dt>Udgangsspænding</dt><dd>${p.output}</dd>
         <dt>Nål</dt><dd>${p.stylus}</dd>
         <dt>Nålebærer</dt><dd>${p.cantilever}</dd>
-        <dt>Vægt</dt><dd>${p.weight}</dd>
-        ${p.force ? `<dt>Nåletryk</dt><dd>${p.force}</dd>` : ""}`}
+        ${p.force ? `<dt>Nåletryk</dt><dd>${p.force}</dd>` : ""}
+        <dt>Vægt</dt><dd>${p.weight}</dd>`}
         ${p.headshellPrice && !p.options ? `<dt>Med headshell</dt><dd>${fmt.format(p.headshellPrice)}</dd>` : ""}
         ${p.spare && !p.options ? `<dt>Erstatningsnål</dt><dd>${p.spare} · ${fmt.format(p.sparePrice)}</dd>` : ""}
       </dl>
