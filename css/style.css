@@ -150,6 +150,7 @@ select { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid
 .site-footer strong { color: #f4f1ea; }
 .site-footer a { text-decoration: none; }
 .site-footer a:hover { color: var(--gold); }
+.footer-note { font-size: .8rem; opacity: .75; }
 
 /* Responsive */
 @media (max-width: 900px) {

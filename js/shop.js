@@ -127,7 +127,7 @@ const CHECKOUT_URL = "";
 async function checkout() {
   const btn = document.getElementById("checkout"), msg = document.getElementById("checkout-msg");
   const say = t => { msg.textContent = t; msg.hidden = !t; };
-  if (!CHECKOUT_URL) return say("Betaling er ikke åbnet endnu. Kontakt os, så hjælper vi med din bestilling.");
+  if (!CHECKOUT_URL) return say("Betaling er ikke åbnet endnu. Kontakt os på info@classic-hifi.dk eller 71 90 32 71, så hjælper vi med din bestilling.");
   const items = Object.entries(cart).filter(([key]) => cartLine(key)).map(([key, qty]) => ({ key, qty }));
   if (!items.length) return;
   btn.disabled = true; btn.textContent = "Åbner betaling …"; say("");
@@ -191,7 +191,7 @@ function renderChrome() {
     </aside>
     <footer class="site-footer">
       <div class="wrap footer-inner">
-        <div><strong>Classic HiFi Fidelity</strong><br>High End Audio</div>
+        <div class="company"><strong>Classic HiFi Fidelity ApS</strong><br>Nørre Alle 4, 7400 Herning<br>CVR 46685326<br><a href="tel:+4571903271">71 90 32 71</a> · <a href="mailto:info@classic-hifi.dk">info@classic-hifi.dk</a><br><span class="footer-note">Kun åbent efter forudgående aftale</span></div>
         <div>Fri fragt over 1.000 kr.<br>30 dages returret</div>
         <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a><br><a href="skyanalog.html">Skyanalog</a><br><a href="sumiko.html">Sumiko</a><br><a href="kabler.html">Kabler</a><br><a href="tilbehor.html">Tilbehør</a></div>
       </div>

@@ -63,8 +63,8 @@ under **Betalinger** (i testtilstand).
 3. Erstat `STRIPE_SECRET_KEY` i Cloudflare med den nye nøgle.
 4. Hvis shoppen flytter til fx `shop.classic-hifi.dk`, skal `SHOP_URL` ændres til den nye adresse.
 
-Før shoppen åbner, skal der også være handelsbetingelser, CVR-nummer, adresse og en side om
-fortrydelsesret på hjemmesiden.
+Firmaoplysningerne (Classic HiFi Fidelity ApS, adresse og CVR) står allerede nederst på alle sider.
+Før shoppen åbner, skal der også være handelsbetingelser og en side om fortrydelsesret på hjemmesiden.
 
 ---
 
