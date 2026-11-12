@@ -187,7 +187,7 @@ function renderChrome() {
         <button id="checkout" class="btn btn-primary" onclick="checkout()">Gå til kassen</button>
         <p id="checkout-msg" class="checkout-msg" role="alert" hidden></p>
         <p class="checkout-note">Sikker betaling med kort eller MobilePay via Stripe</p>
-        <p class="checkout-terms">Fragt 49 kr. · fri fragt fra 1.000 kr. Ved køb accepterer du vores <a href="handelsbetingelser.html">handelsbetingelser</a>. Læs om <a href="fortrydelse.html">fortrydelsesret</a>.</p>
+        <p class="checkout-terms"><strong>Fri fragt over 1.000 kr.</strong><br>Ved køb accepterer du vores <a href="handelsbetingelser.html">handelsbetingelser</a>. Læs om <a href="fortrydelse.html">fortrydelsesret</a>.</p>
       </div>
     </aside>
     <footer class="site-footer">
