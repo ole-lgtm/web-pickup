@@ -187,12 +187,13 @@ function renderChrome() {
         <button id="checkout" class="btn btn-primary" onclick="checkout()">Gå til kassen</button>
         <p id="checkout-msg" class="checkout-msg" role="alert" hidden></p>
         <p class="checkout-note">Sikker betaling med kort eller MobilePay via Stripe</p>
+        <p class="checkout-terms">Fragt 49 kr. · fri fragt fra 1.000 kr. Ved køb accepterer du vores <a href="handelsbetingelser.html">handelsbetingelser</a>. Læs om <a href="fortrydelse.html">fortrydelsesret</a>.</p>
       </div>
     </aside>
     <footer class="site-footer">
       <div class="wrap footer-inner">
         <div class="company"><strong>Classic HiFi Fidelity ApS</strong><br>Nørre Alle 4, 7400 Herning<br>CVR 46685326<br><a href="tel:+4571903271">71 90 32 71</a> · <a href="mailto:info@classic-hifi.dk">info@classic-hifi.dk</a><br><span class="footer-note">Kun åbent efter forudgående aftale</span></div>
-        <div>Fri fragt over 1.000 kr.<br>30 dages returret</div>
+        <div>Fri fragt over 1.000 kr.<br>14 dages fortrydelsesret<br><a href="handelsbetingelser.html">Handelsbetingelser</a><br><a href="fortrydelse.html">Fortrydelsesret · fortryd et køb</a></div>
         <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a><br><a href="skyanalog.html">Skyanalog</a><br><a href="sumiko.html">Sumiko</a><br><a href="kabler.html">Kabler</a><br><a href="tilbehor.html">Tilbehør</a></div>
       </div>
     </footer>`);
@@ -286,12 +287,40 @@ function renderHome() {
     </a>`).join("");
 }
 
+// ---------- Fortrydelsesfunktion (fortrydelse.html) ----------
+// Trin 1: kunden udfylder felterne. Trin 2: kunden bekræfter, og meddelelsen sendes til info@classic-hifi.dk.
+function setupWithdrawForm() {
+  const form = document.getElementById("withdraw-form"), box = document.getElementById("withdraw-confirm");
+  if (!form) return;
+  const esc = t => t.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(form));
+    const varer = d.varer.trim() || "Alle varer i ordren";
+    const text = `Jeg meddeler herved, at jeg ønsker at gøre fortrydelsesretten gældende for følgende køb:\n\nOrdre: ${d.ordre}\nVarer: ${varer}\nNavn: ${d.navn}\nE-mail: ${d.email}\nDato: ${new Date().toLocaleDateString("da-DK")}`;
+    const mail = `mailto:info@classic-hifi.dk?subject=${encodeURIComponent("Fortrydelse af køb – ordre " + d.ordre)}&body=${encodeURIComponent(text)}`;
+    box.innerHTML = `<p><strong>Bekræft at du vil fortryde købet</strong></p>
+      <p>Ordre ${esc(d.ordre)} · ${esc(varer)}<br>${esc(d.navn)} · ${esc(d.email)}</p>
+      <a class="btn btn-primary" id="withdraw-send" href="${mail}">Bekræft fortrydelse</a>
+      <button class="btn" type="button" onclick="this.parentElement.hidden = true">Ret oplysninger</button>`;
+    box.hidden = false;
+    form.hidden = true;
+    document.getElementById("withdraw-send").addEventListener("click", () => {
+      box.innerHTML = `<p><strong>Dit e-mailprogram åbner nu med din fortrydelse.</strong> Tryk send i e-mailen. Når vi har modtaget den, bekræfter vi din fortrydelse på e-mail.</p>
+        <p>Åbnede der ikke en e-mail? Så send teksten herunder til <a href="mailto:info@classic-hifi.dk">info@classic-hifi.dk</a>.</p>
+        <pre style="white-space:pre-wrap;font:inherit;background:#fff;padding:12px;border-radius:6px">${esc(text)}</pre>`;
+    });
+    box.querySelector("button").addEventListener("click", () => { form.hidden = false; });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderChrome();
   const page = document.body.dataset.page;
   if (page === "home") renderHome();
   if (BRANDS[page]) renderBrandPage(page);
   if (page === "tak") { cart = {}; saveCart(cart); }
+  setupWithdrawForm();
   renderCart();
   // Tilbage fra Stripe med browserens tilbage-knap: nulstil knappen.
   window.addEventListener("pageshow", () => { const b = document.getElementById("checkout"); if (b) b.textContent = "Gå til kassen"; renderCart(); });

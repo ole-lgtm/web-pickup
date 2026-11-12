@@ -9,6 +9,7 @@ BRANDS.kabler = {
   intro: [
     "Cardas Audio fra Oregon, USA, er grundlagt af George Cardas og kendt for kabler, hvor lederne er opbygget efter det gyldne snit ('Golden Section'). Formålet er at mindske resonanser i kablet, så signalet kommer så uforandret som muligt frem.",
     "Alle Cardas-kabler laves med rene kobberledere og Cardas' egne stik. Vælg længde og stik under hvert kabel, så ser du prisen med det samme. Interconnects og højttalerkabler sælges i par. Ønsker du en længde, der ikke står på listen, så kontakt os.",
+    "Kabler, som vi får fremstillet specielt til dig i den længde og med de stik, du vælger, kan ikke fortrydes. Gælder det for din bestilling, får du besked, før vi bestiller kablet. Se <a href=\"fortrydelse.html#undtagelser\">fortrydelsesret</a>.",
   ],
 };
 

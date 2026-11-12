@@ -190,3 +190,24 @@ select { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid
 
 .variants.single { grid-template-columns: 1fr; }
 .variants select.needs-choice { border-color: #c0392b; box-shadow: 0 0 0 3px rgba(192,57,43,.18); }
+
+/* ---------- Juridiske sider (handelsbetingelser, fortrydelsesret) ---------- */
+.legal { max-width: 760px; margin: 0 auto; padding: 56px 0 72px; line-height: 1.65; }
+.legal h1 { margin: 0 0 8px; }
+.legal .updated { color: var(--muted); font-size: .88rem; margin: 0 0 32px; }
+.legal h2 { font-size: 1.35rem; margin: 40px 0 10px; }
+.legal h3 { font-size: 1.02rem; margin: 22px 0 6px; }
+.legal ul { padding-left: 1.2em; }
+.legal li { margin: 4px 0; }
+.legal .toc { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 14px 18px; border: 1px solid var(--line); border-radius: 8px; font-size: .9rem; }
+.legal .note { padding: 14px 18px; border-left: 3px solid var(--gold); background: #faf6ee; border-radius: 0 8px 8px 0; }
+.legal .formular { padding: 18px 22px; border: 1px dashed #bbb; border-radius: 8px; background: #fff; }
+.withdraw-form { display: grid; gap: 14px; padding: 22px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+.withdraw-form label { display: grid; gap: 5px; font-size: .9rem; font-weight: 500; }
+.withdraw-form input, .withdraw-form textarea { font: inherit; padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; }
+.withdraw-form .btn { justify-self: start; }
+.withdraw-confirm { padding: 16px 18px; border-radius: 8px; background: #faf6ee; }
+.withdraw-confirm .btn { margin-top: 10px; margin-right: 8px; }
+.checkout-terms { margin: 10px 0 0; font-size: .75rem; text-align: center; color: var(--muted); }
+.checkout-terms a { color: inherit; }
+.withdraw-form[hidden], .withdraw-confirm[hidden] { display: none; }
