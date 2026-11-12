@@ -187,13 +187,13 @@ function renderChrome() {
         <button id="checkout" class="btn btn-primary" onclick="checkout()">Gå til kassen</button>
         <p id="checkout-msg" class="checkout-msg" role="alert" hidden></p>
         <p class="checkout-note">Sikker betaling med kort eller MobilePay via Stripe</p>
-        <p class="checkout-terms"><strong>Fri fragt over 1.000 kr.</strong><br>Ved køb accepterer du vores <a href="handelsbetingelser.html">handelsbetingelser</a>. Læs om <a href="fortrydelse.html">fortrydelsesret</a>.</p>
+        <p class="checkout-terms"><strong>Fri fragt fra 1.000 kr.</strong><br>Ved køb accepterer du vores <a href="handelsbetingelser.html">handelsbetingelser</a>. Læs om <a href="fortrydelse.html">fortrydelsesret</a>.</p>
       </div>
     </aside>
     <footer class="site-footer">
       <div class="wrap footer-inner">
         <div class="company"><strong>Classic HiFi Fidelity ApS</strong><br>Nørre Alle 4, 7400 Herning<br>CVR 46685326<br><a href="tel:+4571903271">71 90 32 71</a> · <a href="mailto:info@classic-hifi.dk">info@classic-hifi.dk</a><br><span class="footer-note">Kun åbent efter forudgående aftale</span></div>
-        <div>Fri fragt over 1.000 kr.<br>14 dages fortrydelsesret<br><a href="handelsbetingelser.html">Handelsbetingelser</a><br><a href="fortrydelse.html">Fortrydelsesret · fortryd et køb</a></div>
+        <div>Fri fragt fra 1.000 kr.<br>14 dages fortrydelsesret<br><a href="handelsbetingelser.html">Handelsbetingelser</a><br><a href="fortrydelse.html">Fortrydelsesret · fortryd et køb</a></div>
         <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a><br><a href="skyanalog.html">Skyanalog</a><br><a href="sumiko.html">Sumiko</a><br><a href="kabler.html">Kabler</a><br><a href="tilbehor.html">Tilbehør</a></div>
       </div>
     </footer>`);
