@@ -175,9 +175,9 @@ select { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid
 .product-img img, .cart-thumb img { aspect-ratio: 320 / 220; object-fit: contain; background: #fff; }
 
 /* Valg af længde/stik på kabler */
-.variants { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 4px 0 14px; }
+.variants { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; margin: 4px 0 14px; }
 .variants label { display: flex; flex-direction: column; gap: 4px; font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: #777; }
-.variants select { font: inherit; font-size: .95rem; text-transform: none; letter-spacing: 0; color: #222; padding: 8px 10px; border: 1px solid #d8d2c4; border-radius: 8px; background: #fff; }
+.variants select { width: 100%; min-width: 0; font: inherit; font-size: .95rem; text-transform: none; letter-spacing: 0; color: #222; padding: 8px 10px; border: 1px solid #d8d2c4; border-radius: 8px; background: #fff; }
 @media (max-width: 420px) { .variants { grid-template-columns: 1fr; } }
 
 /* Grupper på kabelsiden */
@@ -188,7 +188,7 @@ select { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid
 .group-nav a { padding: 7px 14px; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; color: inherit; text-decoration: none; font-size: .9rem; }
 .group-nav a:hover { border-color: #c9a24b; color: #c9a24b; }
 
-.variants.single { grid-template-columns: 1fr; }
+.variants.single { grid-template-columns: minmax(0, 1fr); }
 .variants select.needs-choice { border-color: #c0392b; box-shadow: 0 0 0 3px rgba(192,57,43,.18); }
 
 /* ---------- Juridiske sider (handelsbetingelser, fortrydelsesret) ---------- */
@@ -216,7 +216,7 @@ select { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid
 @supports (grid-template-rows: subgrid) {
   /* Afstanden mellem rækkerne ligger som margin på kortet, så den ikke lægges ind mellem kortets egne linjer. */
   .grid:has(> .product) { row-gap: 0; }
-  .grid > .product { display: grid; grid-row: span 7; grid-template-rows: subgrid; row-gap: 0; margin-bottom: 26px; }
+  .grid > .product { display: grid; grid-template-columns: minmax(0, 1fr); grid-row: span 7; grid-template-rows: subgrid; row-gap: 0; margin-bottom: 26px; min-width: 0; }
   .grid > .product > .product-body { display: contents; }
   .grid > .product > .product-body > * { margin-left: 22px; margin-right: 22px; }
   .grid > .product .product-type { margin-top: 22px; }
