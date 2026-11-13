@@ -129,3 +129,12 @@ osascript -l JavaScript tools/build-prices.js "$(pwd)"
 
 Hvis den ikke bliver bygget igen, kan kunden ikke betale for nye eller ændrede varer. Workeren tjekker,
 at totalen i kurven passer med prislisten, og stopper betalingen, hvis de ikke stemmer overens.
+
+## Når css eller js ændres
+
+Kør dette før push, så browsere (især iPad og iPhone) henter de nye filer med det samme i stedet for at bruge
+en gammel kopi:
+
+```sh
+sh tools/bump-version.sh
+```
