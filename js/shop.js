@@ -212,6 +212,8 @@ function productCard(p) {
         ${p.specs
           ? p.specs.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")
           : `<dt>Udgangsspænding</dt><dd>${p.output}</dd>
+        ${p.impedance ? `<dt>Impedans</dt><dd>${p.impedance}</dd>` : ""}
+        ${p.load ? `<dt>Anbefalet belastning</dt><dd>${p.load}</dd>` : ""}
         <dt>Nål</dt><dd>${p.stylus}</dd>
         <dt>Nålebærer</dt><dd>${p.cantilever}</dd>
         ${p.force ? `<dt>Nåletryk</dt><dd>${p.force}</dd>` : ""}
