@@ -161,7 +161,7 @@ function renderChrome() {
         <nav class="main-nav">
           ${link("index.html", "home", "Forside")}
           <div class="dropdown">
-            <span class="${["dynavector","nagaoka","skyanalog","sumiko"].includes(page) ? "active" : ""}">Mærker ▾</span>
+            <button type="button" class="dropdown-toggle ${["dynavector","nagaoka","skyanalog","sumiko"].includes(page) ? "active" : ""}" aria-haspopup="true" aria-expanded="false">Mærker ▾</button>
             <div class="dropdown-menu">
               ${link("dynavector.html", "dynavector", "Dynavector")}
               ${link("nagaoka.html", "nagaoka", "Nagaoka")}
@@ -197,6 +197,12 @@ function renderChrome() {
         <div><a href="dynavector.html">Dynavector</a><br><a href="nagaoka.html">Nagaoka</a><br><a href="skyanalog.html">Skyanalog</a><br><a href="sumiko.html">Sumiko</a><br><a href="kabler.html">Kabler</a><br><a href="tilbehor.html">Tilbehør</a></div>
       </div>
     </footer>`);
+  // Mærker-menuen: åbnes ved klik/tryk, så den også virker på iPad og andre touchskærme uden hover.
+  const dd = document.querySelector(".dropdown"), ddBtn = dd.querySelector(".dropdown-toggle");
+  const setOpen = open => { dd.classList.toggle("open", open); ddBtn.setAttribute("aria-expanded", String(open)); };
+  ddBtn.addEventListener("click", e => { e.stopPropagation(); setOpen(!dd.classList.contains("open")); });
+  document.addEventListener("click", e => { if (!dd.contains(e.target)) setOpen(false); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") setOpen(false); });
 }
 
 // ---------- Produktkort ----------
